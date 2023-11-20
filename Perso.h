@@ -13,7 +13,7 @@ private:
 protected:
 	std::string name;
 	Weapon* weapon;
-	vector<Effect> effect;
+	//vector<Effect*> effect;
 public:
 	Perso();
 	Perso(std::string name, int hp, Weapon*);

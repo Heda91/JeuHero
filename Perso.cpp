@@ -35,14 +35,27 @@ void Perso::heal(int hp) {
 }
 void Perso::attack(Perso& p) {
 	cout << this->getName() << " a attaque " << p.getName() << endl;
-	this->weapon->attack(p);
+	p.takeAttack(this->weapon);
 }
 void Perso::takeAttack(Weapon* w) {
-	//regarde typeATK == typeDEF
-		//defend grace à l'arme
-	//sinon
-		//arme attaque
-
+	int tank;
+	switch (w->getTypeATK())
+	{
+	case 'P':
+		tank = this->weapon->getDefP();
+		break;
+	case 'M':
+		tank = this->weapon->getDefM();
+		break;
+	case 'F':
+		tank = this->weapon->getDefF();
+		break;
+	case 'N':
+		tank = this->weapon->getDefN();
+		break;
+	}
+	if (w->getDamage() <= tank) { cout << "Attaque echoue" << endl; }
+	else { w->attack(*this, tank); }
 }
 void Perso::getDamage(int damage) {
 	this->hp -= damage;
