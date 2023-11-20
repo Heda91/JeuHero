@@ -15,7 +15,7 @@ Game::Game(Perso p, Perso e[3]) {
 }
 
 void Game::game() {
-	ennemy[0].attack(player, 3);
+	ennemy[0].attack(player);
 	while (!player.isDead() && (!ennemy[0].isDead() || !ennemy[1].isDead() || !ennemy[2].isDead())) {
 		this->turn += 1;
 		this->turnPlayer();

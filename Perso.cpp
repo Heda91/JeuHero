@@ -1,5 +1,6 @@
 #pragma once
 #include "Perso.h"
+#include "Weapon.h"
 #include <iostream>
 using namespace std;
 
@@ -9,12 +10,12 @@ Perso::Perso() {
 	this->hp_max = 0;
 	this->dead = true;
 }
-Perso::Perso(string name,int hp) {
+Perso::Perso(string name,int hp, Weapon* w) {
 	this->name = name;
 
 	this->hp = hp;
 	this->hp_max = hp;
-	//this->weapon = w;
+	this->weapon = w;
 }
 string Perso::getName() { return this->name; }
 string Perso::print() {
@@ -33,11 +34,7 @@ void Perso::heal(int hp) {
 }
 void Perso::attack(Perso& p) {
 	cout << this->name << " a attaque " << p.getName() << endl;
-	//this->weapon.attack(p);
-}
-void Perso::attack(Perso& p, int damage) {
-	cout << this->name << " a attaque " << p.getName() << endl;
-	p.getDamage(damage);
+	this->weapon->attack(p);
 }
 void Perso::getDamage(int damage) {
 	this->hp -= damage;
