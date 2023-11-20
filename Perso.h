@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class Weapon;
+class Effect;
 
 class Perso
 {
@@ -11,6 +13,7 @@ private:
 protected:
 	std::string name;
 	Weapon* weapon;
+	vector<Effect> effect;
 public:
 	Perso();
 	Perso(std::string name, int hp, Weapon*);
@@ -22,6 +25,7 @@ public:
 
 	void heal(int);
 	void attack(Perso&);
+	void takeAttack(Weapon*);
 	void getDamage(int);
 	void death();
 };

@@ -6,10 +6,5 @@ Weapon::Weapon(int damage){
 	this->damage = damage;
 }
 
-void Weapon::attack(Perso& p) {
-	p.getDamage(this->damage);
-}
-
-
-
+void Weapon::attack(Perso& p) { p.getDamage(this->damage); }
 

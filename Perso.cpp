@@ -1,6 +1,7 @@
 #pragma once
 #include "Perso.h"
 #include "Weapon.h"
+#include "Effect.h"
 #include <iostream>
 using namespace std;
 
@@ -17,9 +18,9 @@ Perso::Perso(string name,int hp, Weapon* w) {
 	this->hp_max = hp;
 	this->weapon = w;
 }
-string Perso::getName() { return this->name; }
+string Perso::getName() { return '*' + this->name + '*'; }
 string Perso::print() {
-	string txt = "Joueur: " + this->getName() + " | ";
+	string txt = "Nom: " + this->getName() + " | ";
 	txt += "Vie: " + to_string(this->hp) + "/" + to_string(this->hp_max) + " | ";
 	txt += "Mort: " + to_string(this->dead);
 	return txt;
@@ -33,20 +34,27 @@ void Perso::heal(int hp) {
 	else { this->hp += hp; }
 }
 void Perso::attack(Perso& p) {
-	cout << this->name << " a attaque " << p.getName() << endl;
+	cout << this->getName() << " a attaque " << p.getName() << endl;
 	this->weapon->attack(p);
+}
+void Perso::takeAttack(Weapon* w) {
+	//regarde typeATK == typeDEF
+		//defend grace à l'arme
+	//sinon
+		//arme attaque
+
 }
 void Perso::getDamage(int damage) {
 	this->hp -= damage;
 	if (hp > 0) {
-		cout << this->name << " a subit " << damage << " degats!" << endl;
+		cout << this->getName() << " a subit " << damage << " degats!" << endl;
 	}
 	else { this->death(); }
 }
 void Perso::death() { 
 	this->dead = true;
 	this->hp = 0;
-	cout << this->name << " est mort." << endl;
+	cout << this->getName() << " est mort." << endl;
 }
 
 

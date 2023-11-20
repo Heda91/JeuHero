@@ -14,5 +14,6 @@ public:
 
 	void game();
 	void turnPlayer();
+	void turnBot();
 };
 

@@ -1,9 +1,16 @@
 #pragma once
 #include "Game.h"
 #include <iostream>
+#include <random>
 #include <vector>
 using namespace std;
 
+int random(int min, int max) {
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<> dis(min, max);
+	return dis(gen);
+}
 unsigned int Game::getTurn() { return this->turn; }
 
 Game::Game(Perso p, Perso e[3]) {
@@ -15,10 +22,11 @@ Game::Game(Perso p, Perso e[3]) {
 }
 
 void Game::game() {
-	ennemy[0].attack(player);
 	while (!player.isDead() && (!ennemy[0].isDead() || !ennemy[1].isDead() || !ennemy[2].isDead())) {
 		this->turn += 1;
 		this->turnPlayer();
+		this->turnBot();
+		cout << this->player.print() << endl;
 	}
 	cout << endl << "FIN DU JEU (en " << this->getTurn() << " tours)";
 }
@@ -51,3 +59,15 @@ void Game::turnPlayer() {
 		break;
 	}
 }
+void Game::turnBot() {
+	for (int i = 0; i < 3; i++) {
+		if (!ennemy[i].isDead()) {
+			if (ennemy[i].getHp() != ennemy[i].getHpMax() && random(0, 100) <= 20) {
+				ennemy[i].heal(random(2,4));
+			}
+			else { ennemy[i].attack(this->player); }
+		}
+	}
+}
+
+
