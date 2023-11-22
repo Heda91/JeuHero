@@ -38,7 +38,7 @@ void Perso::attack(Perso& p) {
 	p.takeAttack(this->weapon);
 }
 void Perso::takeAttack(Weapon* w) {
-	int tank;
+	int tank = 0;
 	switch (w->getTypeATK())
 	{
 	case 'P':
@@ -70,5 +70,5 @@ void Perso::death() {
 	cout << this->getName() << " est mort." << endl;
 }
 
-
+void Perso::putEffect(Effect* e) { this->effect.push_back(e); }
 
