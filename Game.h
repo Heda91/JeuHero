@@ -2,6 +2,8 @@
 #include "Perso.h"
 #include <vector>
 
+class Effect;
+
 class Game
 {
 private:
@@ -15,5 +17,6 @@ public:
 	void game();
 	void turnPlayer();
 	void turnBot();
+	void effectEndTurn(Perso*);
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.h"
+#include "Effect.h"
 #include <iostream>
 #include <random>
 #include <vector>
@@ -22,10 +23,18 @@ Game::Game(Perso p, Perso e[3]) {
 }
 
 void Game::game() {
+	Burn ko(&player, "brulure", 2);
+	Burn kn(&ennemy[2], "brulure in game", 2);
 	while (!player.isDead() && (!ennemy[0].isDead() || !ennemy[1].isDead() || !ennemy[2].isDead())) {
 		this->turn += 1;
 		this->turnPlayer();
 		this->turnBot();
+
+		this->effectEndTurn(&this->player);
+		this->effectEndTurn(&this->ennemy[0]);
+		this->effectEndTurn(&this->ennemy[1]);
+		this->effectEndTurn(&this->ennemy[2]);
+
 		cout << this->player.print() << endl;
 	}
 	cout << endl << "FIN DU JEU (en " << this->getTurn() << " tours)";
@@ -64,10 +73,19 @@ void Game::turnBot() {
 		if (!ennemy[i].isDead()) {
 			if (ennemy[i].getHp() != ennemy[i].getHpMax() && random(0, 100) <= 20) {
 				ennemy[i].heal(random(2,4));
+				cout << ennemy[i].getName() << "s'est soigne" << endl;
 			}
 			else { ennemy[i].attack(this->player); }
 		}
 	}
 }
-
+void Game::effectEndTurn(Perso* p) {
+	if (!p->isDead()){
+		vector<Effect*>* eff = p->getEffect();
+		for (int i = 0; i < eff->size(); i++) {
+			bool end = eff->at(i)->advanceTurn();
+			if (end) { eff->erase(eff->begin() + i); }
+		}
+	}
+}
 

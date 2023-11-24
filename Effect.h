@@ -7,22 +7,24 @@ class Effect
 private:
 	int turn;
 	std::string name;
-	virtual void playEndTurn(Perso&);//joue l'effet en fin de tour
+protected:
+	Perso* perso;
+	virtual void playEndTurn();//joue l'effet en fin de tour
 public:
-	Effect(std::string name, int turn);
+	Effect(Perso*, std::string name, int turn);
 	std::string getName();
 	int getTurn();
 	void setTurn(int);
-	bool advanceTurn(Perso&); //fait tour-1 et renvoi si c'est la fin de l'effet
-	virtual void play(Perso&); //joue l'effet
+	bool advanceTurn(); //fait tour-1 et renvoi si c'est la fin de l'effet
+	virtual void play(); //joue l'effet
 };
 
 class Burn : public Effect
 {
 private:
 	int damage;
+	void playEndTurn() override;
 public:
-	Burn(std::string name, int turn, int damage) ;
-	void play(Perso& p) override;
+	Burn(Perso*, std::string name, int turn, int damage = 2) ;
 };
 

@@ -9,6 +9,7 @@ private:
 	int defP, defM, defF, defN;
 public:
 	Weapon(int damage, char typeATK, int defP = 0, int defM = 0, int defF = 0, int defN = 0);
+
 	char getTypeATK();
 	int getDefP();
 	int getDefM();
@@ -16,5 +17,5 @@ public:
 	int getDefN();
 	int getDamage();
 
-	void attack(Perso&, int tank = 0);
+	void attack(Perso*, int tank = 0);
 };

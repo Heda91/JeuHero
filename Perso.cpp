@@ -21,12 +21,22 @@ Perso::Perso(string name,int hp, Weapon* w) {
 string Perso::getName() { return '*' + this->name + '*'; }
 string Perso::print() {
 	string txt = "Nom: " + this->getName() + " | ";
-	txt += "Vie: " + to_string(this->hp) + "/" + to_string(this->hp_max) + " | ";
-	txt += "Mort: " + to_string(this->dead);
+	txt += "Vie: " + to_string(this->hp) + "/" + to_string(this->hp_max);
+	txt += " | Mort: " + to_string(this->dead);
+	if (effect.empty()) { txt += " | Pas d'effets"; }
+	else {
+		txt += " | Effets: ";
+		for (int i = 0; i < this->effect.size(); i++) {
+			txt += effect[i]->getName() + ", ";
+		}
+		txt.pop_back();
+		txt.pop_back();
+	}
 	return txt;
 }
 int Perso::getHp() { return this->hp; }
 int Perso::getHpMax() { return this->hp_max; }
+vector<Effect*>* Perso::getEffect() { return &this->effect; }
 bool Perso::isDead() { return dead; }
 
 void Perso::heal(int hp) {
@@ -55,7 +65,7 @@ void Perso::takeAttack(Weapon* w) {
 		break;
 	}
 	if (w->getDamage() <= tank) { cout << "Attaque echoue" << endl; }
-	else { w->attack(*this, tank); }
+	else { w->attack(this, tank); }
 }
 void Perso::getDamage(int damage) {
 	this->hp -= damage;

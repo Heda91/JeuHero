@@ -21,6 +21,7 @@ public:
 	std::string print();
 	int getHp();
 	int getHpMax();
+	std::vector<Effect*>* getEffect();
 	bool isDead();
 
 	void heal(int);
